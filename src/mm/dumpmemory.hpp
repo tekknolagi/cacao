@@ -197,6 +197,18 @@ public:
 	}
 };
 
+// Returns true because the allocator is stateless;
+// any instance can deallocate memory from any other instance.
+template <class T, class U>
+inline bool operator==(const DumpMemoryAllocator<T>&, const DumpMemoryAllocator<U>&) throw() {
+    return true;
+}
+
+// Conversely, they are never unequal.
+template <class T, class U>
+inline bool operator!=(const DumpMemoryAllocator<T>&, const DumpMemoryAllocator<U>&) throw() {
+    return false;
+}
 
 /**
  * Dump memory allocation, used for for ENABLE_MEMCHECK.
